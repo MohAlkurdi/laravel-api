@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -34,7 +35,12 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
         ]);
-        return Product::create($request->all());
+
+        $user = Auth::user(); // Get the currently logged-in user
+        $productData = $request->all();
+        $productData['created_by'] = $user->name; // Assign the username
+
+        return Product::create($productData);
     }
 
     /**

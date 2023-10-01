@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('description')->nullable();
             $table->decimal('price', 5, 2);
+            $table->string('created_by');
             $table->timestamps();
         });
     }
